@@ -1,2 +1,14 @@
-# lib-template
-Template for creating new libraries in The Band Solution, based on eo_lib and libbase.
+# Lib Template
+
+A template for creating new Python libraries in The Band Solution organization.
+Based on Clean Architecture principles and `libbase`.
+
+## Features
+
+-   Clean Architecture structure (Domain, Services, Infrastructure, Controllers)
+-   Pre-configured with `libbase` dependency
+-   Ready-to-use ServiceFactory and Configuration
+
+## Documentation
+
+See [USING_TEMPLATE.md](USING_TEMPLATE.md) for instructions on how to create a new library using this template.
