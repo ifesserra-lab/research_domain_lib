@@ -7,17 +7,19 @@ Overview of all demands, their states and executors.
 
 | # | Status | Title | Executor | Sprint | Milestone |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) | 🟢 | Feature: Implement ResearchGroup Feature (Entities, Repositories, Controllers) | @paulossjunior | Sprint 1 | v0.1.0 |
+| [#2](https://github.com/The-Band-Solution/ResearchDomain/pull/2) | ✅ | Feature: Implement ResearchGroup Feature (Entities, Repositories, Controllers) | @paulossjunior | Sprint 1 | v0.1.0 |
 
 ---
 
 ## 📂 Workflow States
 
 ### 🟢 In Progress / Todo
-- [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) **Feature: Implement ResearchGroup Feature** (Executor: @paulossjunior)
+_No issues in this state._
 
 ### ✅ Done / Released
-_No issues in this state yet._
+- [#2](https://github.com/The-Band-Solution/ResearchDomain/pull/2) **Feature: Implement ResearchGroup Feature** (Executor: @paulossjunior)
+    - **PR**: [#2](https://github.com/The-Band-Solution/ResearchDomain/pull/2)
+    - **SHA**: `39f41ee`
 
 ---
 
@@ -25,14 +27,14 @@ _No issues in this state yet._
 Organized by execution cycles.
 
 ### 🗓️ Sprint 1 (2026-01-01 - 2026-01-15)
-- 🟢 [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) Feature: Implement ResearchGroup Feature
+- ✅ [#2](https://github.com/The-Band-Solution/ResearchDomain/pull/2) Feature: Implement ResearchGroup Feature
 
 ---
 
 ## 🎯 Delivery Marks (Milestones)
 
 ### 🏁 v0.1.0 - Initial Core Implementation
-- 🟢 [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) Feature: Implement ResearchGroup Feature
+- ✅ [#2](https://github.com/The-Band-Solution/ResearchDomain/pull/2) Feature: Implement ResearchGroup Feature
 
 ---
 
