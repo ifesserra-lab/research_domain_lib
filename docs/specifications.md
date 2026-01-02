@@ -14,6 +14,27 @@
 | `id` | `INTEGER` | `PK`, `AUTO` | Unique Identifier |
 | `name` | `VARCHAR(100)` | `UNIQUE`, `NOT NULL` | Group Name |
 | `campus_id` | `INTEGER` | `FK(campuses.id)` | Presence in Campus |
+| `cnpq_url` | `VARCHAR(255)` | `NULLABLE` | CNPq Link |
+| `site` | `VARCHAR(255)` | `NULLABLE` | Group Site |
+
+### Table: `knowledge_areas`
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `INTEGER` | `PK`, `AUTO` | Unique Identifier |
+| `name` | `VARCHAR(100)` | `UNIQUE`, `NOT NULL` | Area Name |
+
+### Table: `group_knowledge_areas`
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `group_id`| `INTEGER` | `FK(research_groups.id)`| Parent Group |
+| `area_id`| `INTEGER` | `FK(knowledge_areas.id)` | Theme Link |
+
+### Table: `roles`
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `INTEGER` | `PK`, `AUTO` | Unique Identifier |
+| `name` | `VARCHAR(100)` | `UNIQUE`, `NOT NULL` | Role Name |
+| `description`| `TEXT` | `NULLABLE` | Description |
 
 ### Table: `team_members`
 | Column | Type | Constraints | Description |
@@ -21,7 +42,9 @@
 | `id` | `INTEGER` | `PK`, `AUTO` | Unique Identifier |
 | `person_id` | `INTEGER` | `FK(persons.id)` | Link to Parent |
 | `team_id` | `INTEGER` | `FK(research_groups.id)` | Link to Group |
-| `role` | `VARCHAR(50)` | `NOT NULL` | Role (e.g., Researcher) |
+| `role_id` | `INTEGER` | `FK(roles.id)` | Participation Role |
+| `start_date` | `DATE` | `NOT NULL` | Start of Membership/Leadership |
+| `end_date` | `DATE` | `NULLABLE` | End of Membership/Leadership |
 
 ### Table: `universities`
 | Column | Type | Constraints | Description |
@@ -43,8 +66,15 @@
 - `get_by_id(id: int) -> Researcher`
 
 ### Class: `ResearchGroupController`
-- `create_research_group(name: str, campus_id: int, organization_id: int, description: str, short_name: str) -> ResearchGroup`
+- `create_research_group(name: str, campus_id: int, organization_id: int, knowledge_area_ids: list[int], description: str, short_name: str, cnpq_url: str, site: str) -> ResearchGroup`
+- `add_member(team_id: int, researcher_id: int, role_id: int, start_date: date, end_date: date = None) -> TeamMember`
+- `add_leader(team_id: int, researcher_id: int, start_date: date, end_date: date = None) -> TeamMember`
+- `get_leaders(team_id: int) -> list[TeamMember]`
 - `get_all() -> list[ResearchGroup]`
+
+### Class: `KnowledgeAreaController`
+- `create_knowledge_area(name: str) -> KnowledgeArea`
+- `get_all() -> list[KnowledgeArea]`
 
 ### Class: `UniversityController`
 - `create_university(name: str, description: str, short_name: str) -> University`

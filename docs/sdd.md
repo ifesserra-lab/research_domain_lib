@@ -27,7 +27,9 @@ The system models a research environment within Universities.
 - A **Campus** (Organizational Unit) is a branch of a University.
 - A **Research Group** (Team) is a collective of individuals conducting research, presence in a specific **Campus**.
 - A **Researcher** (Person) is an individual belonging to one or more Research Groups.
-- A **TeamMember** (Researcher in ResearchGroup) represents the association of a Researcher to a Research Group.
+- A **Knowledge Area** is a thematic classification for research groups.
+- A **TeamMember** (Researcher in ResearchGroup) represents the association of a Researcher to a Research Group with a specific **Role**.
+- **Leadership** is a specialized membership status defined by the "Leader" role.
 
 ### 2.2 Data Dictionary
 
@@ -51,17 +53,38 @@ The system models a research environment within Universities.
 |-----------|------|-------------|-------------|
 | `id` | Integer | PK, Auto-Inc | Unique internal identifier for the group. |
 | `name` | String | Unique, Not Null | The official name of the research group. |
-| `description`| Text | Optional | A detailed description of the group's purpose. |
+| `description`| Text | Optional | A detailed description. |
+| `cnpq_url` | String | Optional | Link to the group in the CNPq Directory of Research Groups. |
+| `site` | String | Optional | The group's official website. |
 
-#### 2.2.3 Researcher in Group (TeamMember)
+#### 2.2.3 Knowledge Area
+| Attribute | Type | Constraints | Description |
+|-----------|------|-------------|-------------|
+| `id` | Integer | PK, Auto-Inc | Unique identifier. |
+| `name` | String | Unique, Not Null | Name of the thematic area (e.g., Computer Science). |
+
+#### 2.2.4 Role (eo_lib)
+| Attribute | Type | Constraints | Description |
+|-----------|------|-------------|-------------|
+| `id` | Integer | PK, Auto-Inc | Unique identifier. |
+| `name` | String | Unique, Not Null | Role name (e.g., "Leader", "Researcher"). |
+| `description`| Text | Optional | Role description. |
+
+#### 2.2.5 Group Knowledge Area (Association)
+| Attribute | Type | Constraints | Description |
+|-----------|------|-------------|-------------|
+| `group_id`| Integer| FK (ResearchGroup)| Link to the group. |
+| `area_id` | Integer| FK (KnowledgeArea) | Link to the area. |
+
+#### 2.2.6 Researcher in Group (TeamMember)
 | Attribute | Type | Constraints | Description |
 |-----------|------|-------------|-------------|
 | `id` | Integer | PK, Auto-Inc | Unique identifier for the membership record. |
 | `person_id` | Integer | FK (Person) | Reference to the Researcher. |
 | `team_id` | Integer | FK (Team) | Reference to the Research Group. |
-| `role` | String | Default "member" | The functional role of the researcher within this specific group. |
+| `role_id` | Integer | FK (Role) | Reference to the functional role in the group. |
 | `start_date` | Date | Default NOW | Date when the researcher joined the group. |
-| `end_date` | Date | Nullable | Date when the researcher left the group. Open interval if null. |
+| `end_date` | Date | Nullable | Date when the researcher left the group. |
 
 #### 2.2.4 InitiativeType
 | Attribute | Type | Constraints | Description |
@@ -109,44 +132,79 @@ This diagram illustrates the core entities and their relationships within the do
 
 ```mermaid
 classDiagram
-    %% Entities
-    class Researcher {
+    %% Base Classes (eo_lib/libbase)
+    class Person {
         +int id
         +str name
-        +list[PersonEmail] emails
     }
-
-    class ResearchGroup {
+    class Team {
         +int id
         +str name
-        +int campus_id
-        +list[ResearcherInGroup] members
+        +int organization_id
     }
-
-    class ResearcherInGroup {
-        +int id
-        +int person_id
-        +int team_id
-        +str role
-    }
-    
-    class University {
+    class Organization {
         +int id
         +str name
-        +str short_name
     }
-
-    class Campus {
+    class OrganizationalUnit {
         +int id
         +int organization_id
         +str name
     }
 
+    %% Research Domain Entities
+    class Researcher {
+        +list[PersonEmail] emails
+    }
+
+    class ResearchGroup {
+        +int campus_id
+        +str cnpq_url
+        +str site
+        +list[KnowledgeArea] knowledge_areas
+        +list[TeamMember] members
+    }
+
+    class University {
+        +str short_name
+    }
+
+    class Campus {
+        +str description
+    }
+
+    class KnowledgeArea {
+        +int id
+        +str name
+    }
+
+    class Role {
+        +int id
+        +str name
+    }
+
+    class TeamMember {
+        +int id
+        +int person_id
+        +int team_id
+        +int role_id
+        +date start_date
+        +date end_date
+    }
+
+    %% Inheritance
+    Researcher --|> Person : inherits
+    ResearchGroup --|> Team : inherits
+    University --|> Organization : inherits
+    Campus --|> OrganizationalUnit : inherits
+
     %% Relationships
-    Researcher "1" --> "N" ResearcherInGroup : Belongs to
-    ResearchGroup "1" --> "N" ResearcherInGroup : Contains
+    Researcher "1" --> "N" TeamMember : Belongs to
+    ResearchGroup "1" --> "N" TeamMember : Contains
+    Role "1" --> "N" TeamMember : Defines
     University "1" --> "N" Campus : Contains
     ResearchGroup "N" --> "1" Campus : Present in
+    ResearchGroup "N" --> "M" KnowledgeArea : Classified as
 ```
 
 ### 3.2 Architecture Class Diagram

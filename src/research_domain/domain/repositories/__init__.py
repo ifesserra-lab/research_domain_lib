@@ -3,6 +3,8 @@ from .repositories import (
     UniversityRepositoryInterface,
     CampusRepositoryInterface,
     ResearchGroupRepositoryInterface,
+    KnowledgeAreaRepositoryInterface,
+    RoleRepositoryInterface,
 )
 
 __all__ = [
@@ -10,4 +12,6 @@ __all__ = [
     "UniversityRepositoryInterface",
     "CampusRepositoryInterface",
     "ResearchGroupRepositoryInterface",
+    "KnowledgeAreaRepositoryInterface",
+    "RoleRepositoryInterface",
 ]

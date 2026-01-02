@@ -3,6 +3,8 @@ from .controllers import (
     UniversityController,
     CampusController,
     ResearchGroupController,
+    KnowledgeAreaController,
+    RoleController,
 )
 
 __all__ = [
@@ -10,4 +12,6 @@ __all__ = [
     "UniversityController",
     "CampusController",
     "ResearchGroupController",
+    "KnowledgeAreaController",
+    "RoleController",
 ]

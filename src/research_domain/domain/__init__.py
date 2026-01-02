@@ -3,13 +3,15 @@ from .entities import (
     University,
     Campus,
     ResearchGroup,
-    ResearcherInGroup,
+    KnowledgeArea,
 )
 from .repositories import (
     ResearcherRepositoryInterface,
     UniversityRepositoryInterface,
     CampusRepositoryInterface,
     ResearchGroupRepositoryInterface,
+    KnowledgeAreaRepositoryInterface,
+    RoleRepositoryInterface,
 )
 
 __all__ = [
@@ -17,9 +19,11 @@ __all__ = [
     "University",
     "Campus",
     "ResearchGroup",
-    "ResearcherInGroup",
+    "KnowledgeArea",
     "ResearcherRepositoryInterface",
     "UniversityRepositoryInterface",
     "CampusRepositoryInterface",
     "ResearchGroupRepositoryInterface",
+    "KnowledgeAreaRepositoryInterface",
+    "RoleRepositoryInterface",
 ]

@@ -3,6 +3,8 @@ from .services import (
     UniversityService,
     CampusService,
     ResearchGroupService,
+    KnowledgeAreaService,
+    RoleService,
 )
 
 __all__ = [
@@ -10,4 +12,6 @@ __all__ = [
     "UniversityService",
     "CampusService",
     "ResearchGroupService",
+    "KnowledgeAreaService",
+    "RoleService",
 ]

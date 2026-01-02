@@ -1,18 +1,21 @@
 from typing import List
 from libbase.infrastructure.sql_repository import GenericSqlRepository
 from eo_lib.infrastructure.database.postgres_client import PostgresClient
+from eo_lib.domain.entities import TeamMember, Role
 from research_domain.domain.repositories import (
     ResearcherRepositoryInterface,
     UniversityRepositoryInterface,
     CampusRepositoryInterface,
     ResearchGroupRepositoryInterface,
+    KnowledgeAreaRepositoryInterface,
+    RoleRepositoryInterface,
 )
 from research_domain.domain.entities import (
     Researcher,
     University,
     Campus,
     ResearchGroup,
-    ResearcherInGroup,
+    KnowledgeArea,
 )
 
 class PostgresResearcherRepository(GenericSqlRepository[Researcher], ResearcherRepositoryInterface):
@@ -35,7 +38,7 @@ class PostgresResearchGroupRepository(GenericSqlRepository[ResearchGroup], Resea
         client = PostgresClient()
         super().__init__(client.get_session(), ResearchGroup)
 
-    def add_member(self, member: ResearcherInGroup) -> ResearcherInGroup:
+    def add_member(self, member: TeamMember) -> TeamMember:
         try:
             self._session.add(member)
             self._session.commit()
@@ -46,12 +49,22 @@ class PostgresResearchGroupRepository(GenericSqlRepository[ResearchGroup], Resea
             raise
 
     def remove_member(self, member_id: int) -> bool:
-        db_obj = self._session.query(ResearcherInGroup).filter_by(id=member_id).first()
+        db_obj = self._session.query(TeamMember).filter_by(id=member_id).first()
         if db_obj:
             self._session.delete(db_obj)
             self._session.commit()
             return True
         return False
 
-    def get_members(self, team_id: int) -> List[ResearcherInGroup]:
-        return self._session.query(ResearcherInGroup).filter_by(team_id=team_id).all()
+    def get_members(self, team_id: int) -> List[TeamMember]:
+        return self._session.query(TeamMember).filter_by(team_id=team_id).all()
+
+class PostgresKnowledgeAreaRepository(GenericSqlRepository[KnowledgeArea], KnowledgeAreaRepositoryInterface):
+    def __init__(self):
+        client = PostgresClient()
+        super().__init__(client.get_session(), KnowledgeArea)
+
+class PostgresRoleRepository(GenericSqlRepository[Role], RoleRepositoryInterface):
+    def __init__(self):
+        client = PostgresClient()
+        super().__init__(client.get_session(), Role)

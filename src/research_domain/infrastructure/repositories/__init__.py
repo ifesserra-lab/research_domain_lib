@@ -3,12 +3,16 @@ from .sql_repositories import (
     PostgresUniversityRepository,
     PostgresCampusRepository,
     PostgresResearchGroupRepository,
+    PostgresKnowledgeAreaRepository,
+    PostgresRoleRepository,
 )
 from .memory_repositories import (
     InMemoryResearcherRepository,
     InMemoryUniversityRepository,
     InMemoryCampusRepository,
     InMemoryResearchGroupRepository,
+    InMemoryKnowledgeAreaRepository,
+    InMemoryRoleRepository,
 )
 
 __all__ = [
@@ -16,8 +20,12 @@ __all__ = [
     "PostgresUniversityRepository",
     "PostgresCampusRepository",
     "PostgresResearchGroupRepository",
+    "PostgresKnowledgeAreaRepository",
+    "PostgresRoleRepository",
     "InMemoryResearcherRepository",
     "InMemoryUniversityRepository",
     "InMemoryCampusRepository",
     "InMemoryResearchGroupRepository",
+    "InMemoryKnowledgeAreaRepository",
+    "InMemoryRoleRepository",
 ]

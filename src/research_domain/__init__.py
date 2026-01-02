@@ -3,19 +3,23 @@ from .controllers import (
     UniversityController,
     CampusController,
     ResearchGroupController,
+    KnowledgeAreaController,
+    RoleController,
 )
 from .domain.entities import (
     Researcher,
     University,
     Campus,
     ResearchGroup,
-    ResearcherInGroup,
+    KnowledgeArea,
 )
 from .services import (
     ResearcherService,
     UniversityService,
     CampusService,
     ResearchGroupService,
+    KnowledgeAreaService,
+    RoleService,
 )
 
 __all__ = [
@@ -23,13 +27,17 @@ __all__ = [
     "UniversityController",
     "CampusController",
     "ResearchGroupController",
+    "KnowledgeAreaController",
+    "RoleController",
     "Researcher",
     "University",
     "Campus",
     "ResearchGroup",
-    "ResearcherInGroup",
+    "KnowledgeArea",
     "ResearcherService",
     "UniversityService",
     "CampusService",
     "ResearchGroupService",
+    "KnowledgeAreaService",
+    "RoleService",
 ]
