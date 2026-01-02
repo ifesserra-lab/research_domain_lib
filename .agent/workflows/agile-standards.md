@@ -79,6 +79,7 @@ Maintain the following artifacts throughout the lifecycle:
 
 ## 8. Merge Standards
 - [ ] **Conflict Free**: PR can be merged if there are no conflicts.
+- [ ] **Automation**: If the CI pipeline (`.github/workflows/ci.yml`) passes, the PR MUST be merged and related issues closed automatically. **MANDATORY AND NON-NEGOTIABLE**.
 - [ ] **Cleanup**: 
     - [ ] **Remote**: Delete the feature/bugfix branch from GitHub immediately after the PR is merged.
     - [ ] **Local**: Delete the local branch to keep the workspace clean.
