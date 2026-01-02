@@ -1,6 +1,6 @@
-# Lib Template
+# Research Domain
 
-A template for creating new Python libraries in The Band Solution organization.
+Library for managing data about research groups, campus, university, researchers, papers and other information about research.
 Based on Clean Architecture principles and `libbase`.
 
 ## Features

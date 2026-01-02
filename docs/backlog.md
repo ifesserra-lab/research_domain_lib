@@ -1,58 +1,59 @@
-# Project Backlog - Enterprise Ontology Library
+# Project Backlog - ResearchDomain
 
-This document is automatically synchronized with GitHub Issues. Last updated: 2026-01-01 13:27:28
+This document is automatically synchronized with GitHub Issues. Last updated: 2026-01-01 21:35:00
 
 ## 📋 Master Issue List
-Visão geral de todas as demandas, seus estados e executores.
+Overview of all demands, their states and executors.
 
 | # | Status | Title | Executor | Sprint | Milestone |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [#31](https://github.com/The-Band-Solution/eo_lib/issues/31) | 🟢 | Feature: Implement Database Indexing for Entities | - | - | - |
+| [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) | 🟢 | Feature: Implement ResearchGroup Feature (Entities, Repositories, Controllers) | @paulossjunior | Sprint 1 | v0.1.0 |
 
 ---
 
 ## 📂 Workflow States
 
 ### 🟢 In Progress / Todo
-- [#31](https://github.com/The-Band-Solution/eo_lib/issues/31) **Feature: Implement Database Indexing for Entities** (Executor: -)
+- [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) **Feature: Implement ResearchGroup Feature** (Executor: @paulossjunior)
 
 ### ✅ Done / Released
-_Nenhuma issue neste estado._
-
+_No issues in this state yet._
 
 ---
 
 ## 🏃 Sprints (Interactions)
-Demandas organizadas por ciclos de execução. Uma issue pode aparecer em múltiplos sprints.
+Organized by execution cycles.
 
-### 🗓️ No Sprint
-- 🟢 [#31](https://github.com/The-Band-Solution/eo_lib/issues/31) Feature: Implement Database Indexing for Entities
+### 🗓️ Sprint 1 (2026-01-01 - 2026-01-15)
+- 🟢 [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) Feature: Implement ResearchGroup Feature
 
 ---
 
 ## 🎯 Delivery Marks (Milestones)
-Grandes entregas e objetivos estratégicos.
 
-### 🏁 Backlog / No Milestone
-- 🟢 [#31](https://github.com/The-Band-Solution/eo_lib/issues/31) Feature: Implement Database Indexing for Entities
+### 🏁 v0.1.0 - Initial Core Implementation
+- 🟢 [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) Feature: Implement ResearchGroup Feature
 
 ---
 
 ## 📝 Detailed Backlog
-Detalhamento completo de cada issue.
 
-### [OPEN] [#31](https://github.com/The-Band-Solution/eo_lib/issues/31) Feature: Implement Database Indexing for Entities
-- **Executor**: -
-- **Labels**: `enhancement`, `performance`
-- **Milestone**: -
+### [OPEN] [#1](https://github.com/The-Band-Solution/ResearchDomain/issues/1) Feature: Implement ResearchGroup Feature
+- **Executor**: @paulossjunior
+- **Labels**: `enhancement`, `feature`
+- **Milestone**: v0.1.0
 
 **Description**:
 ## Context
-To improve read performance and optimize query execution plans, we need to introduce database indexes on frequently accessed columns across our core entities.
+Implement the core entities for the `ResearchDomain` library as specified in the updated documentation.
 
 ## Requirements
-- Define indexes for the following entities as specified in `docs/specifications.md`:
-    - **Person**: `name`, `...
+- A `ResearchGroup` is a `Team`.
+- A `ResearchGroup` must have at least one `Researcher`.
+- A `ResearchGroup` is present in a `Campus`.
+- A `Campus` is in a `University`.
 
----
-
+## Proposed Changes
+- Implement `University`, `Campus`, `ResearchGroup`, and `Researcher`.
+- Implement specialized repository interfaces and SQLAlchemy strategies.
+- Implement specialized controllers and services.

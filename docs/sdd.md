@@ -22,21 +22,20 @@ The system follows a **Strict Layered Architecture** emphasizing separation of c
 ## 2. Data Design (IEEE 1016)
 
 ### 2.1 Mini-World Scenario
-The system models a corporate environment where human resources are managed through **Persons**, **Teams**, and **Projects**.
-- A **Person** represents an individual acting within the organization. They can have multiple email addresses.
-- An **Organization** is the top-level entity representing a company or institution.
-- An **Organizational Unit** represents a department, branch, or team grouping within an Organization, allowing for hierarchical nesting.
-- A **Team** is a permanent or semi-permanent collection of individuals working together.
-- A **TeamMember** represents the association of a Person to a Team, characterized by a specific `role` (e.g., "Developer", "Lead") and a strict time period (`start_date` to `end_date`).
-- An **Initiative** is a specific undertaking or product with a specific lifecycle (`start_date` to `end_date`) and a Type. Teams (not individual persons) are assigned to Initiatives.
+The system models a research environment within Universities.
+- A **University** (Organization) is the top-level entity.
+- A **Campus** (Organizational Unit) is a branch of a University.
+- A **Research Group** (Team) is a collective of individuals conducting research, presence in a specific **Campus**.
+- A **Researcher** (Person) is an individual belonging to one or more Research Groups.
+- A **TeamMember** (Researcher in ResearchGroup) represents the association of a Researcher to a Research Group.
 
 ### 2.2 Data Dictionary
 
-#### 2.2.1 Person
+#### 2.2.1 Researcher (Person)
 | Attribute | Type | Constraints | Description |
 |-----------|------|-------------|-------------|
-| `id` | Integer | PK, Auto-Inc | Unique internal identifier for the person. |
-| `name` | String | Not Null | The full legal name of the person. |
+| `id` | Integer | PK, Auto-Inc | Unique internal identifier for the researcher. |
+| `name` | String | Not Null | The full legal name of the researcher. |
 | `identification_id` | String | Unique | Personal identification card / tax ID. |
 | `birthday` | Date | Optional | The date of birth. |
 
@@ -47,22 +46,22 @@ The system models a corporate environment where human resources are managed thro
 | `person_id` | Integer | FK (Person) | Reference to the Person owner. |
 | `email` | String | Unique, Not Null | The email address. |
 
-#### 2.2.2 Team
+#### 2.2.2 Research Group (Team)
 | Attribute | Type | Constraints | Description |
 |-----------|------|-------------|-------------|
-| `id` | Integer | PK, Auto-Inc | Unique internal identifier for the team. |
-| `name` | String | Unique, Not Null | The official name of the team (e.g., "Alpha Squad"). |
-| `description`| Text | Optional | A detailed description of the team's purpose. |
+| `id` | Integer | PK, Auto-Inc | Unique internal identifier for the group. |
+| `name` | String | Unique, Not Null | The official name of the research group. |
+| `description`| Text | Optional | A detailed description of the group's purpose. |
 
-#### 2.2.3 TeamMember (Association Entity)
+#### 2.2.3 Researcher in Group (TeamMember)
 | Attribute | Type | Constraints | Description |
 |-----------|------|-------------|-------------|
 | `id` | Integer | PK, Auto-Inc | Unique identifier for the membership record. |
-| `person_id` | Integer | FK (Person) | Reference to the Person. |
-| `team_id` | Integer | FK (Team) | Reference to the Team. |
-| `role` | String | Default "member" | The functional role of the person within this specific team. |
-| `start_date` | Date | Default NOW | Date when the person joined the team. |
-| `end_date` | Date | Nullable | Date when the person left the team. Open interval if null. |
+| `person_id` | Integer | FK (Person) | Reference to the Researcher. |
+| `team_id` | Integer | FK (Team) | Reference to the Research Group. |
+| `role` | String | Default "member" | The functional role of the researcher within this specific group. |
+| `start_date` | Date | Default NOW | Date when the researcher joined the group. |
+| `end_date` | Date | Nullable | Date when the researcher left the group. Open interval if null. |
 
 #### 2.2.4 InitiativeType
 | Attribute | Type | Constraints | Description |
@@ -111,72 +110,43 @@ This diagram illustrates the core entities and their relationships within the do
 ```mermaid
 classDiagram
     %% Entities
-    class Person {
+    class Researcher {
         +int id
         +str name
-        +str identification_id
-        +date birthday
         +list[PersonEmail] emails
     }
 
-    class PersonEmail {
-        +int id
-        +int person_id
-        +str email
-    }
-
-    class Team {
+    class ResearchGroup {
         +int id
         +str name
-        +list[TeamMember] members
+        +int campus_id
+        +list[ResearcherInGroup] members
     }
 
-    class TeamMember {
+    class ResearcherInGroup {
         +int id
         +int person_id
         +int team_id
         +str role
-        +date start_date
-        +date end_date
     }
     
-    class InitiativeType {
-        +int id
-        +str name
-        +str description
-    }
-
-    class Initiative {
-        +int id
-        +str name
-        +str description
-        +date start_date
-        +date end_date
-        +int initiative_type_id
-        +list[Team] teams
-    }
-
-    class Organization {
+    class University {
         +int id
         +str name
         +str short_name
     }
 
-    class OrganizationalUnit {
+    class Campus {
         +int id
         +int organization_id
-        +int parent_id
         +str name
     }
 
     %% Relationships
-    Person "1" --> "N" PersonEmail : Has
-    Person "1" --> "N" TeamMember : Belongs to
-    Team "1" --> "N" TeamMember : Contains
-    Team "N" -- "M" Initiative : Assigned to
-    Initiative "N" --> "1" InitiativeType : Has Type
-    Organization "1" --> "N" OrganizationalUnit : Contains
-    OrganizationalUnit "1" --> "N" OrganizationalUnit : Hierarchical Parent
+    Researcher "1" --> "N" ResearcherInGroup : Belongs to
+    ResearchGroup "1" --> "N" ResearcherInGroup : Contains
+    University "1" --> "N" Campus : Contains
+    ResearchGroup "N" --> "1" Campus : Present in
 ```
 
 ### 3.2 Architecture Class Diagram
