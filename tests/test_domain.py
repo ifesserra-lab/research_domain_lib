@@ -80,3 +80,26 @@ def test_add_researcher_to_group_basic():
     assert membership.team_id == 1
     assert membership.role_id == 2
     assert membership.start_date == date.today()
+
+def test_create_researcher_with_metadata():
+    researcher = Researcher(
+        name="Dr. Jones",
+        cnpq_url="http://lattes.cnpq.br/1234",
+        google_scholar_url="http://scholar.google.com/citations?user=1234"
+    )
+    assert researcher.name == "Dr. Jones"
+    assert researcher.cnpq_url == "http://lattes.cnpq.br/1234"
+    assert researcher.google_scholar_url == "http://scholar.google.com/citations?user=1234"
+
+def test_researcher_many_to_many_knowledge_areas():
+    area1 = KnowledgeArea(name="Machine Learning", id=1)
+    area2 = KnowledgeArea(name="Data Science", id=2)
+    
+    researcher = Researcher(
+        name="Dr. Metadata",
+        knowledge_areas=[area1, area2]
+    )
+    
+    assert len(researcher.knowledge_areas) == 2
+    assert area1 in researcher.knowledge_areas
+    assert area2 in researcher.knowledge_areas
