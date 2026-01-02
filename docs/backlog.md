@@ -1,13 +1,13 @@
 # Project Backlog - ResearchDomain
 
-This document is automatically synchronized with GitHub Issues. Last updated: 2026-01-02 11:21:07
+This document is automatically synchronized with GitHub Issues. Last updated: 2026-01-02 11:34:34
 
 ## 📋 Master Issue List
 Overview of all demands, their states and executors.
 
 | # | Status | Title | Executor | Sprint | Milestone |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [# 9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) | 🟢 | [US] Researcher Academic Metadata & Knowledge Areas | - | - | Issue Base |
+| [# 9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) | ✅ | [US] Researcher Academic Metadata & Knowledge Areas | - | - | Issue Base |
 | [# 6](https://github.com/The-Band-Solution/ResearchDomain/issues/6) | ✅ | [TASK] Implementation of Role-based Leadership and Many-to-Many Areas | - | - | Issue Base |
 | [# 5](https://github.com/The-Band-Solution/ResearchDomain/issues/5) | ✅ | [US] ResearchGroup Categorization & Leadership Recognition | - | - | Issue Base |
 | [# 4](https://github.com/The-Band-Solution/ResearchDomain/issues/4) | ✅ | [EPIC] ResearchGroup Metadata & Advanced Membership | - | - | Issue Base |
@@ -18,9 +18,10 @@ Overview of all demands, their states and executors.
 ## 📂 Workflow States
 
 ### 🟢 In Progress / Todo
-- [#9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) **[US] Researcher Academic Metadata & Knowledge Areas**
+_No issues in this state._
 
 ### ✅ Done / Released
+- [#9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) **[US] Researcher Academic Metadata & Knowledge Areas**
 - [#6](https://github.com/The-Band-Solution/ResearchDomain/issues/6) **[TASK] Implementation of Role-based Leadership and Many-to-Many Areas**
 - [#5](https://github.com/The-Band-Solution/ResearchDomain/issues/5) **[US] ResearchGroup Categorization & Leadership Recognition**
 - [#4](https://github.com/The-Band-Solution/ResearchDomain/issues/4) **[EPIC] ResearchGroup Metadata & Advanced Membership**
@@ -30,7 +31,7 @@ Overview of all demands, their states and executors.
 
 ## 📝 Detailed Backlog
 
-### [OPEN] [#9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) [US] Researcher Academic Metadata & Knowledge Areas
+### [CLOSED] [#9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) [US] Researcher Academic Metadata & Knowledge Areas
 - **Executor**: -
 - **Labels**: feature, us
 - **Milestone**: Issue Base
