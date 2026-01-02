@@ -40,6 +40,8 @@ The system models a research environment within Universities.
 | `name` | String | Not Null | The full legal name of the researcher. |
 | `identification_id` | String | Unique | Personal identification card / tax ID. |
 | `birthday` | Date | Optional | The date of birth. |
+| `cnpq_url` | String | Optional | Link to CNPq Lattes curriculum. |
+| `google_scholar_url` | String | Optional | Link to Google Scholar profile. |
 
 #### 2.2.2 PersonEmail
 | Attribute | Type | Constraints | Description |
@@ -122,6 +124,12 @@ The system models a research environment within Universities.
 | `description` | Text | Optional | - |
 | `short_name` | String | Optional | - |
 
+#### 2.2.7 Researcher Knowledge Area (Association)
+| Attribute | Type | Constraints | Description |
+|-----------|------|-------------|-------------|
+| `researcher_id`| Integer| FK (Researcher)| Link to the researcher. |
+| `area_id` | Integer| FK (KnowledgeArea) | Link to the area. |
+
 #### 2.2.5 Implementation Strategy
 The entities are implemented using **SQLAlchemy Declarative Models** inheriting from a shared `Base`. This provides a direct mapping between the classes described above and the underlying Relational Database Schema, ensuring the DRY principle is respected.
 
@@ -155,6 +163,9 @@ classDiagram
     %% Research Domain Entities
     class Researcher {
         +list[PersonEmail] emails
+        +str cnpq_url
+        +str google_scholar_url
+        +list[KnowledgeArea] knowledge_areas
     }
 
     class ResearchGroup {
@@ -205,6 +216,7 @@ classDiagram
     University "1" --> "N" Campus : Contains
     ResearchGroup "N" --> "1" Campus : Present in
     ResearchGroup "N" --> "M" KnowledgeArea : Classified as
+    Researcher "N" --> "M" KnowledgeArea : Specializes in
 ```
 
 ### 3.2 Architecture Class Diagram

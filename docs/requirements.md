@@ -5,6 +5,8 @@
 ### FR-01: Person Management (Researchers)
 - **FR-01-A**: The system must allow creating a Researcher (Person) with `name` and zero or more `emails`.
 - **FR-01-B**: The system must allow retrieving a Researcher by ID.
+- **FR-01-C**: Researcher must store `cnpq_url` and `google_scholar_url` (optional, strings).
+- **FR-01-D**: Researcher must be associated with one or more `KnowledgeAreas`.
 
 ### FR-02: Team Management (Research Groups)
 - **FR-02-A**: The system must allow creating a ResearchGroup (Team).

@@ -7,6 +7,7 @@ Overview of all demands, their states and executors.
 
 | # | Status | Title | Executor | Sprint | Milestone |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| [# 9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) | 🟢 | [US] Researcher Academic Metadata & Knowledge Areas | - | - | Issue Base |
 | [# 6](https://github.com/The-Band-Solution/ResearchDomain/issues/6) | 🟢 | [TASK] Implementation of Role-based Leadership and Many-to-Many Areas | - | - | Issue Base |
 | [# 5](https://github.com/The-Band-Solution/ResearchDomain/issues/5) | 🟢 | [US] ResearchGroup Categorization & Leadership Recognition | - | - | Issue Base |
 | [# 4](https://github.com/The-Band-Solution/ResearchDomain/issues/4) | 🟢 | [EPIC] ResearchGroup Metadata & Advanced Membership | - | - | Issue Base |
@@ -17,6 +18,7 @@ Overview of all demands, their states and executors.
 ## 📂 Workflow States
 
 ### 🟢 In Progress / Todo
+- [#9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) **[US] Researcher Academic Metadata & Knowledge Areas**
 - [#6](https://github.com/The-Band-Solution/ResearchDomain/issues/6) **[TASK] Implementation of Role-based Leadership and Many-to-Many Areas**
 - [#5](https://github.com/The-Band-Solution/ResearchDomain/issues/5) **[US] ResearchGroup Categorization & Leadership Recognition**
 - [#4](https://github.com/The-Band-Solution/ResearchDomain/issues/4) **[EPIC] ResearchGroup Metadata & Advanced Membership**
@@ -27,6 +29,23 @@ Overview of all demands, their states and executors.
 ---
 
 ## 📝 Detailed Backlog
+
+### [OPEN] [#9](https://github.com/The-Band-Solution/ResearchDomain/issues/9) [US] Researcher Academic Metadata & Knowledge Areas
+- **Executor**: -
+- **Labels**: feature, us
+- **Milestone**: Issue Base
+
+**Description**:
+## Description
+As a researcher, I want my profile to include my academic links (CNPq, Google Scholar) and my specialized knowledge areas so that I can be correctly identified within the research domain.
+
+## Acceptance Criteria
+- Researcher entity supports `cnpq_url` (optional string).
+- Researcher entity supports `google_scholar_url` (optional string).
+- Researcher can be associated with multiple `KnowledgeAreas` (Many-to-Many).
+- Code must follow TDD (Tests First).
+
+---
 
 ### [OPEN] [#6](https://github.com/The-Band-Solution/ResearchDomain/issues/6) [TASK] Implementation of Role-based Leadership and Many-to-Many Areas
 - **Executor**: -
