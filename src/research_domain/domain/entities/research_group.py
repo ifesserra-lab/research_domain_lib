@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from eo_lib.domain.entities import Team
 from eo_lib.domain.base import Base
 from typing import Optional, List
+from research_domain.domain.mixins import SerializableMixin
 
 # Association Table for Many-to-Many relationship between ResearchGroup and KnowledgeArea
 group_knowledge_areas = Table(
@@ -12,7 +13,7 @@ group_knowledge_areas = Table(
     Column("area_id", Integer, ForeignKey("knowledge_areas.id"), primary_key=True),
 )
 
-class ResearchGroup(Team):
+class ResearchGroup(Team, SerializableMixin):
     """
     ResearchGroup Model.
     
