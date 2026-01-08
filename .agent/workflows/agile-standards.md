@@ -43,13 +43,14 @@ Before moving a task to "In Progress":
 Maintain the following artifacts throughout the lifecycle:
 - [ ] `task.md`: For detailed task tracking.
 - [ ] `implementation_plan.md`: For technical planning and review.
+    - [ ] **Test Plan**: MUST list all test cases based on requirements. **MANDATORY AND NON-NEGOTIABLE**.
 - [ ] `docs/backlog.md`: Must include **Releases** section with:
     - PR Number & Link
     - Description
     - Commit SHA & Link
 
 ## 5. Implementation Standards
-- [ ] **TDD**: Code must pass all tests.
+- [ ] **TDD**: Implement the test cases defined in the plan BEFORE the implementation code. **MANDATORY AND NON-NEGOTIABLE**.
 - [ ] **Style**: Code must pass `black`, `flake8`, `isort`.
 - [ ] **Business Logic**: All business rules requirements must be satisfied and verified.
 
