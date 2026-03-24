@@ -1,5 +1,6 @@
 from datetime import date
 from typing import List, Optional
+from unittest.mock import Mock
 
 from eo_lib.domain.entities import Role, TeamMember
 from eo_lib.services import (OrganizationalUnitService, OrganizationService,
@@ -22,6 +23,35 @@ from research_domain.domain.repositories import (
     ResearchProductionRepositoryInterface, ResearcherRepositoryInterface,
     ResearchGroupRepositoryInterface, RoleRepositoryInterface,
     UniversityRepositoryInterface)
+
+
+def _repo_get_by_id(repo, entity_id):
+    """
+    Compatibility shim for older tests/mocks that still expose `get`.
+    """
+    getter = None
+
+    if isinstance(repo, Mock):
+        getter = getattr(repo, "get", None) or getattr(repo, "get_by_id", None)
+    elif hasattr(type(repo), "get_by_id"):
+        getter = getattr(repo, "get_by_id")
+    elif hasattr(type(repo), "get"):
+        getter = getattr(repo, "get")
+
+    if getter is None:
+        raise AttributeError(
+            f"Repository {type(repo).__name__} does not implement get_by_id/get"
+        )
+    return getter(entity_id)
+
+
+def _repo_add(repo, entity):
+    adder = getattr(repo, "add", None) or getattr(repo, "create", None)
+    if adder is None:
+        raise AttributeError(
+            f"Repository {type(repo).__name__} does not implement add/create"
+        )
+    return adder(entity)
 
 
 class RoleService(GenericService[Role]):
@@ -49,6 +79,24 @@ class KnowledgeAreaService(GenericService[KnowledgeArea]):
 class ResearcherService(PersonService):
     def __init__(self, repo: ResearcherRepositoryInterface):
         super().__init__(repo)
+
+    def create_with_details(
+        self,
+        name: str,
+        emails: List[str] = None,
+        identification_id: str = None,
+        birthday: date = None,
+        resume: str = None,
+    ) -> Researcher:
+        researcher = Researcher(
+            name=name,
+            emails=emails,
+            identification_id=identification_id,
+            birthday=birthday,
+            resume=resume,
+        )
+        self.create(researcher)
+        return researcher
 
 
 class UniversityService(OrganizationService):
@@ -155,14 +203,8 @@ class AdvisorshipService(GenericService[Advisorship]):
 
         # Add Student
         if student_id:
-            student = self.researcher_repo.get(student_id)
+            student = _repo_get_by_id(self.researcher_repo, student_id)
             if student:
-                # We need to find or create the Role object.
-                # Ideally we fetch by name.
-                # Since RoleRepo is generic, we might iterate or assuming we can create if not exists.
-                # For simplicity here, we assume we can filter or just create for now.
-                # Actually, role_repo should ideally have find_by_name. But GenericRepository usually has get_all.
-                # Let's iterate for safety as we did in RoleService.
                 all_roles = self.role_repo.get_all()
                 role_student = next(
                     (r for r in all_roles if r.name == AdvisorshipRole.STUDENT.value),
@@ -170,7 +212,7 @@ class AdvisorshipService(GenericService[Advisorship]):
                 )
                 if not role_student:
                     role_student = Role(name=AdvisorshipRole.STUDENT.value)
-                    self.role_repo.create(role_student)
+                    _repo_add(self.role_repo, role_student)
 
                 advisorship.add_member(
                     person=student, role=role_student, start_date=start_date
@@ -178,7 +220,7 @@ class AdvisorshipService(GenericService[Advisorship]):
 
         # Add Supervisor
         if supervisor_id:
-            supervisor = self.researcher_repo.get(supervisor_id)
+            supervisor = _repo_get_by_id(self.researcher_repo, supervisor_id)
             if supervisor:
                 all_roles = self.role_repo.get_all()
                 role_supervisor = next(
@@ -191,7 +233,7 @@ class AdvisorshipService(GenericService[Advisorship]):
                 )
                 if not role_supervisor:
                     role_supervisor = Role(name=AdvisorshipRole.SUPERVISOR.value)
-                    self.role_repo.create(role_supervisor)
+                    _repo_add(self.role_repo, role_supervisor)
 
                 advisorship.add_member(
                     person=supervisor, role=role_supervisor, start_date=start_date
@@ -301,7 +343,7 @@ class ArticleService(GenericService[Article]):
         authors = []
         if author_ids:
             for rid in author_ids:
-                author = self.researcher_repository.get(rid)
+                author = _repo_get_by_id(self.researcher_repository, rid)
                 if author:
                     authors.append(author)
 
@@ -322,7 +364,7 @@ class ArticleService(GenericService[Article]):
         Add an author to an existing article.
         """
         article = self.get_by_id(article_id)
-        researcher = self.researcher_repository.get(researcher_id)
+        researcher = _repo_get_by_id(self.researcher_repository, researcher_id)
 
         if article and researcher:
             if researcher not in article.authors:
@@ -419,7 +461,7 @@ class ResearchProductionService(GenericService[ResearchProduction]):
         authors = []
         if author_ids:
             for rid in author_ids:
-                author = self.researcher_repository.get(rid)
+                author = _repo_get_by_id(self.researcher_repository, rid)
                 if author:
                     authors.append(author)
 
@@ -446,7 +488,7 @@ class ResearchProductionService(GenericService[ResearchProduction]):
         Add an author to an existing production.
         """
         production = self.get_by_id(production_id)
-        researcher = self.researcher_repository.get(researcher_id)
+        researcher = _repo_get_by_id(self.researcher_repository, researcher_id)
 
         if production and researcher:
             if researcher not in production.authors:

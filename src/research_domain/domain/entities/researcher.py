@@ -2,26 +2,14 @@ from typing import List, Optional
 
 from eo_lib.domain.base import Base
 from eo_lib.domain.entities import Person
-from sqlalchemy import Column, ForeignKey, Integer, String, Table, JSON, Text
+from sqlalchemy import Column, ForeignKey, Integer, String, Table, Text
 from sqlalchemy.orm import relationship
 
 from research_domain.domain.mixins import SerializableMixin
-# Use string forward reference to avoid circular import issues if possible, 
-# but for foreign_keys resolution we might need the class or specific string syntax.
-# Let's try importing inside the file but after imports? 
-# Actually, let's use the string syntax "AcademicEducation.researcher_id" and ensure the class is available 
-# OR just import it here if academic_education doesn't import Researcher.
-# academic_education.py DOES NOT import Researcher (uses string). So we can import it.
 from research_domain.domain.entities.academic_education import AcademicEducation
-from research_domain.domain.entities.article import Article 
-# Ensure other related entities are imported or available in metadata
-# Importing them here might cause circular loop if they import Researcher.
-# Proficiency imports Researcher? NO, it uses "Researcher" string.
-# But SQLAlchemy needs them registered.
 from research_domain.domain.entities.proficiency import Proficiency
 from research_domain.domain.entities.award import Award
 
-# Association Table for Many-to-Many relationship between Researcher and KnowledgeArea
 researcher_knowledge_areas = Table(
     "researcher_knowledge_areas",
     Base.metadata,
@@ -44,10 +32,7 @@ class Researcher(Person, SerializableMixin):
     cnpq_url = Column(String(255), nullable=True)
     google_scholar_url = Column(String(255), nullable=True)
     resume = Column(Text, nullable=True)
-    # Storing list of strings as JSON/ARRAY. 
-    # Using JSON for better compatibility with SQLite (testing) and Postgres.
-    
-    citation_names = Column(String(500), nullable=True) # Separated by semicolon
+    citation_names = Column(String(500), nullable=True)
 
     # Relationships
     knowledge_areas = relationship(
@@ -90,7 +75,7 @@ class Researcher(Person, SerializableMixin):
         resume: Optional[str] = None,
         citation_names: Optional[str] = None,
         knowledge_areas: Optional[List] = None,
-        articles: Optional[List] = None, # Add to init
+        articles: Optional[List] = None,
         id: Optional[int] = None,
         **kwargs,
     ):

@@ -9,20 +9,16 @@ except ImportError:
 
 
 class Config:
-    DATABASE_URL = os.getenv(
-        "DATABASE_URL", "postgresql://user:password@localhost:5432/lib_db"
-    )
-    STORAGE_TYPE = os.getenv("STORAGE_TYPE", "memory")
-    JSON_DATA_DIR = os.getenv("JSON_DATA_DIR", "/tmp/lib_data")
-
     @classmethod
     def get_database_url(cls) -> str:
-        return cls.DATABASE_URL
+        return os.getenv(
+            "DATABASE_URL", "postgresql://user:password@localhost:5432/lib_db"
+        )
 
     @classmethod
     def get_storage_type(cls) -> str:
-        return cls.STORAGE_TYPE
+        return os.getenv("STORAGE_TYPE", "memory")
 
     @classmethod
     def get_json_dir(cls) -> str:
-        return cls.JSON_DATA_DIR
+        return os.getenv("JSON_DATA_DIR", "/tmp/lib_data")

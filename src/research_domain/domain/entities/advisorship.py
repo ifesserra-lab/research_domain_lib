@@ -50,6 +50,7 @@ class AdvisorshipMember(Base, SerializableMixin):
     end_date = Column(Date, nullable=True)
 
     person = relationship("Person")
+    role = relationship("Role", foreign_keys=[role_id])
     advisorship = relationship("Advisorship", back_populates="members")
 
 
@@ -75,7 +76,6 @@ class Advisorship(Initiative, SerializableMixin):
     cancelled = Column(Boolean, default=False)
     cancellation_date = Column(Date, nullable=True)
 
-    # Relationships
     fellowship = relationship("Fellowship", foreign_keys=[fellowship_id])
     institution = relationship("Organization", foreign_keys=[institution_id])
 
@@ -116,7 +116,11 @@ class Advisorship(Initiative, SerializableMixin):
     def add_member(self, person: Person, role: Role, start_date: Optional[date] = None):
         """Adds a member to the advisorship."""
         member = AdvisorshipMember(
-            person=person, role_name=role.name, start_date=start_date
+            person=person,
+            role=role,
+            role_id=role.id,
+            role_name=role.name,
+            start_date=start_date,
         )
         self.members.append(member)
 

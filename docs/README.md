@@ -1,18 +1,28 @@
 # Documentation Index
 
-Welcome to the **Enterprise Ontology Library (eo_lib)** documentation folder. This directory contains the technical blueprints and governance documents for the project.
+This directory contains the design, planning, and requirements artifacts for `research_domain`.
 
-## 📄 Key Artifacts
+## Core Documents
 
 | File | Description |
 | :--- | :--- |
-| **[backlog.md](file:///home/paulossjunior/projects/horizon_project/eo_lib_antigravity/docs/backlog.md)** | **Real-time Backlog**: Tracks Sprints, Milestones, and Releases. |
-| **[sdd.md](file:///home/paulossjunior/projects/horizon_project/eo_lib_antigravity/docs/sdd.md)** | **Software Design Description**: Architecture, class diagrams, and design patterns. |
-| **[requirements.md](file:///home/paulossjunior/projects/horizon_project/eo_lib_antigravity/docs/requirements.md)** | **Requirements**: Functional and non-functional requirements. |
-| **[constitution.md](file:///home/paulossjunior/projects/horizon_project/eo_lib_antigravity/docs/constitution.md)** | **Constitution**: Core values and principles of the project. |
+| [`requirements.md`](/home/paulossjunior/projects/ResearchDomain/docs/requirements.md) | Functional and non-functional requirements. |
+| [`specifications.md`](/home/paulossjunior/projects/ResearchDomain/docs/specifications.md) | Detailed behavior and domain specifications. |
+| [`sdd.md`](/home/paulossjunior/projects/ResearchDomain/docs/sdd.md) | Software design description and architectural view. |
+| [`entities.md`](/home/paulossjunior/projects/ResearchDomain/docs/entities.md) | Domain entity reference and modeling notes. |
+| [`implementation_plan.md`](/home/paulossjunior/projects/ResearchDomain/docs/implementation_plan.md) | Implementation roadmap and delivery breakdown. |
+| [`backlog.md`](/home/paulossjunior/projects/ResearchDomain/docs/backlog.md) | Current project backlog. |
+| [`walkthrough.md`](/home/paulossjunior/projects/ResearchDomain/docs/walkthrough.md) | Guided walkthrough of the project. |
+| [`constitution.md`](/home/paulossjunior/projects/ResearchDomain/docs/constitution.md) | Guiding principles for the project. |
 
-## ⚙️ Automation
-The `backlog.md` is managed by a GitHub Action (`.github/workflows/backlog_sync.yml`) that runs daily and on issue events. 
+## Domain-Specific Notes
 
-> [!NOTE]
-> Do not edit `backlog.md` manually, as your changes will be overwritten by the next sync cycle.
+| File | Description |
+| :--- | :--- |
+| [`domain_model_advisorship.md`](/home/paulossjunior/projects/ResearchDomain/docs/domain_model_advisorship.md) | Advisorship domain model notes. |
+| [`domain_model_advisorship_refactor.md`](/home/paulossjunior/projects/ResearchDomain/docs/domain_model_advisorship_refactor.md) | Advisorship refactor history and rationale. |
+
+## Notes
+
+- The package root README is the best place to start for installation, configuration, and quick usage examples.
+- This folder focuses on project artifacts and design documents rather than step-by-step setup instructions.

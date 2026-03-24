@@ -1,11 +1,3 @@
-from .controllers import (CampusController, KnowledgeAreaController,
-                          ResearcherController, ResearchGroupController,
-                          RoleController, UniversityController)
-from .domain.entities import (Advisorship, Campus, Fellowship, KnowledgeArea,
-                              Researcher, ResearchGroup, University)
-from .services import (CampusService, KnowledgeAreaService, ResearcherService,
-                       ResearchGroupService, RoleService, UniversityService)
-
 __all__ = [
     "ResearcherController",
     "UniversityController",
@@ -13,6 +5,13 @@ __all__ = [
     "ResearchGroupController",
     "KnowledgeAreaController",
     "RoleController",
+    "AdvisorshipController",
+    "FellowshipController",
+    "AcademicEducationController",
+    "ArticleController",
+    "EducationTypeController",
+    "ProductionTypeController",
+    "ResearchProductionController",
     "Researcher",
     "University",
     "Campus",
@@ -20,10 +19,76 @@ __all__ = [
     "KnowledgeArea",
     "Advisorship",
     "Fellowship",
+    "AcademicEducation",
+    "EducationType",
+    "Article",
+    "ArticleType",
+    "ProductionType",
+    "ResearchProduction",
     "ResearcherService",
     "UniversityService",
     "CampusService",
     "ResearchGroupService",
     "KnowledgeAreaService",
     "RoleService",
+    "AdvisorshipService",
+    "FellowshipService",
+    "AcademicEducationService",
+    "ArticleService",
+    "EducationTypeService",
+    "ProductionTypeService",
+    "ResearchProductionService",
 ]
+
+_EXPORT_MAP = {
+    "ResearcherController": ("research_domain.controllers", "ResearcherController"),
+    "UniversityController": ("research_domain.controllers", "UniversityController"),
+    "CampusController": ("research_domain.controllers", "CampusController"),
+    "ResearchGroupController": ("research_domain.controllers", "ResearchGroupController"),
+    "KnowledgeAreaController": ("research_domain.controllers", "KnowledgeAreaController"),
+    "RoleController": ("research_domain.controllers", "RoleController"),
+    "AdvisorshipController": ("research_domain.controllers", "AdvisorshipController"),
+    "FellowshipController": ("research_domain.controllers", "FellowshipController"),
+    "AcademicEducationController": ("research_domain.controllers", "AcademicEducationController"),
+    "ArticleController": ("research_domain.controllers", "ArticleController"),
+    "EducationTypeController": ("research_domain.controllers", "EducationTypeController"),
+    "ProductionTypeController": ("research_domain.controllers", "ProductionTypeController"),
+    "ResearchProductionController": ("research_domain.controllers", "ResearchProductionController"),
+    "Researcher": ("research_domain.domain.entities", "Researcher"),
+    "University": ("research_domain.domain.entities", "University"),
+    "Campus": ("research_domain.domain.entities", "Campus"),
+    "ResearchGroup": ("research_domain.domain.entities", "ResearchGroup"),
+    "KnowledgeArea": ("research_domain.domain.entities", "KnowledgeArea"),
+    "Advisorship": ("research_domain.domain.entities", "Advisorship"),
+    "Fellowship": ("research_domain.domain.entities", "Fellowship"),
+    "AcademicEducation": ("research_domain.domain.entities.academic_education", "AcademicEducation"),
+    "EducationType": ("research_domain.domain.entities.academic_education", "EducationType"),
+    "Article": ("research_domain.domain.entities.article", "Article"),
+    "ArticleType": ("research_domain.domain.entities.article", "ArticleType"),
+    "ProductionType": ("research_domain.domain.entities", "ProductionType"),
+    "ResearchProduction": ("research_domain.domain.entities", "ResearchProduction"),
+    "ResearcherService": ("research_domain.services", "ResearcherService"),
+    "UniversityService": ("research_domain.services", "UniversityService"),
+    "CampusService": ("research_domain.services", "CampusService"),
+    "ResearchGroupService": ("research_domain.services", "ResearchGroupService"),
+    "KnowledgeAreaService": ("research_domain.services", "KnowledgeAreaService"),
+    "RoleService": ("research_domain.services", "RoleService"),
+    "AdvisorshipService": ("research_domain.services", "AdvisorshipService"),
+    "FellowshipService": ("research_domain.services", "FellowshipService"),
+    "AcademicEducationService": ("research_domain.services", "AcademicEducationService"),
+    "ArticleService": ("research_domain.services", "ArticleService"),
+    "EducationTypeService": ("research_domain.services", "EducationTypeService"),
+    "ProductionTypeService": ("research_domain.services", "ProductionTypeService"),
+    "ResearchProductionService": ("research_domain.services", "ResearchProductionService"),
+}
+
+
+def __getattr__(name):
+    if name not in _EXPORT_MAP:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+    module_name, attr_name = _EXPORT_MAP[name]
+    module = __import__(module_name, fromlist=[attr_name])
+    value = getattr(module, attr_name)
+    globals()[name] = value
+    return value
